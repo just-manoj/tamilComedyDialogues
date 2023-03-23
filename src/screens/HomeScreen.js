@@ -1,9 +1,14 @@
 import { View, Text, FlatList } from "react-native";
+import { useState, useEffect } from "react";
 
+import SearchBar from "../components/Header/SearchBar";
 import DisplayComedianImage from "../components/HomeScreen/DisplayComedianImage";
-import Header from "../components/HomeScreen/Header";
 
 const HomeScreen = () => {
+  const [searchText, setSearchText] = useState("");
+  const [titleState, setTitleState] = useState(false);
+  const [comedianListData, setComedianListData] = useState([]);
+
   const dummyData = [
     {
       id: 1,
@@ -34,11 +39,45 @@ const HomeScreen = () => {
       dialoguesCount: 1,
     },
   ];
+
+  const clearSearchText = () => {
+    setComedianListData(comedianListData);
+    setSearchText("");
+  };
+
+  const getSearchInput = (inp) => {
+    setSearchText(inp);
+    setComedianListData(
+      comedianListData.filter((item) => {
+        return (
+          item.comedianName.toUpperCase().indexOf(inp.toUpperCase()) !== -1
+          // || item.title.toUpperCase().indexOf(inp.toUpperCase()) !== -1
+        );
+      })
+    );
+  };
+
+  const changeTitleHandler = () => {
+    setComedianListData(comedianListData);
+    setSearchText("");
+    setTitleState(!titleState);
+  };
+
+  useEffect(() => {
+    setComedianListData(dummyData);
+  }, []);
   return (
-    <View>
-      <Header />
+    <View style={{ flex: 1 }}>
+      <SearchBar
+        changeTitleHandler={changeTitleHandler}
+        titleState={titleState}
+        title="Tamil Comedy Dialogues"
+        searchText={searchText}
+        setSearchText={getSearchInput}
+        clearSearchText={clearSearchText}
+      />
       <FlatList
-        data={dummyData}
+        data={comedianListData}
         keyExtractor={({ id }) => id}
         renderItem={({ item }) => (
           <DisplayComedianImage

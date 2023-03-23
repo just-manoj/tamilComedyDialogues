@@ -13,7 +13,6 @@ const SearchBar = (props) => {
     changeTitleHandler,
   } = props;
 
-  console.log(titleState);
   return (
     <View style={styles.container}>
       {titleState ? (

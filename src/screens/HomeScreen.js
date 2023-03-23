@@ -1,8 +1,8 @@
-import { View, Text, FlatList } from "react-native";
+import { View } from "react-native";
 import { useState, useEffect } from "react";
 
 import SearchBar from "../components/Header/SearchBar";
-import DisplayComedianImage from "../components/HomeScreen/DisplayComedianImage";
+import HomeScreenBody from "../components/HomeScreen/HomeScreenBody";
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -37,6 +37,48 @@ const HomeScreen = () => {
       comedianImageUri:
         "https://comedianimages.s3.ap-south-1.amazonaws.com/plip+plip.jpg",
       dialoguesCount: 1,
+    },
+    {
+      id: 5,
+      comedianName: "G P Muthu",
+      comedianImageUri:
+        "https://comedianimages.s3.ap-south-1.amazonaws.com/jmk.jpg",
+      dialoguesCount: 12,
+    },
+    {
+      id: 6,
+      comedianName: "Rajini",
+      comedianImageUri:
+        "https://comedianimages.s3.ap-south-1.amazonaws.com/rajini.jpg",
+      dialoguesCount: 2,
+    },
+    {
+      id: 7,
+      comedianName: "Seeman",
+      comedianImageUri:
+        "https://comedianimages.s3.ap-south-1.amazonaws.com/seeman.jpg",
+      dialoguesCount: 1,
+    },
+    {
+      id: 8,
+      comedianName: "Kamal",
+      comedianImageUri:
+        "https://comedianimages.s3.ap-south-1.amazonaws.com/kamal.jpg",
+      dialoguesCount: 1,
+    },
+    {
+      id: 9,
+      comedianName: "Translator",
+      comedianImageUri:
+        "https://comedianimages.s3.ap-south-1.amazonaws.com/translate.jpeg",
+      dialoguesCount: 4,
+    },
+    {
+      id: 10,
+      comedianName: "Others",
+      comedianImageUri:
+        "https://comedianimages.s3.ap-south-1.amazonaws.com/others.jpg",
+      dialoguesCount: 18,
     },
   ];
 
@@ -76,17 +118,7 @@ const HomeScreen = () => {
         setSearchText={getSearchInput}
         clearSearchText={clearSearchText}
       />
-      <FlatList
-        data={comedianListData}
-        keyExtractor={({ id }) => id}
-        renderItem={({ item }) => (
-          <DisplayComedianImage
-            comedianName={item.comedianName}
-            comedianImageUri={item.comedianImageUri}
-            dialoguesCount={item.dialoguesCount}
-          />
-        )}
-      />
+      <HomeScreenBody comedianListData={comedianListData} />
     </View>
   );
 };

@@ -93,7 +93,6 @@ const HomeScreen = () => {
       comedianListData.filter((item) => {
         return (
           item.comedianName.toUpperCase().indexOf(inp.toUpperCase()) !== -1
-          // || item.title.toUpperCase().indexOf(inp.toUpperCase()) !== -1
         );
       })
     );

@@ -1,18 +1,31 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const ComedianListItem = (props) => {
   const { comedianName, comedianImageUri, dialoguesCount, index } = props;
+
+  const navigation = useNavigation();
+
+  const navigateToListPage = () => {
+    navigation.navigate("List", {
+      comedianName,
+      comedianImageUri,
+      dialoguesCount,
+    });
+  };
+
   return (
-    <View
+    <Pressable
       style={[
         styles.full,
         index % 2 ? styles.rightIemContainer : styles.leftItemContainer,
       ]}
+      onPress={navigateToListPage}
     >
       <Image source={{ uri: comedianImageUri }} style={styles.image} />
       <Text>{comedianName}</Text>
       <Text>{dialoguesCount}</Text>
-    </View>
+    </Pressable>
   );
 };
 

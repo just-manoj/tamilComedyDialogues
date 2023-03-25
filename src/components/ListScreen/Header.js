@@ -5,7 +5,7 @@ import IconButton from "../UI/IconButton";
 
 const Header = (props) => {
   const navigation = useNavigation();
-  const { comedianImageUri, comedianName, dialoguesCount } = props;
+  const { comedianImageUri, comedianName } = props;
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>

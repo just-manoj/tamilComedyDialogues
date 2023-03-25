@@ -1,13 +1,17 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-import IconButton from "../components/UI/IconButton";
 import Header from "../components/ListScreen/Header";
+import ListScreenBody from "../components/ListScreen/ListScreenBody";
 
-const ListScreen = ({ props }) => {
+const ListScreen = () => {
   const route = useRoute();
-  const { comedianImageUri, comedianName, dialoguesCount } = route.params;
-  return <Header {...route.params} />;
+  return (
+    <View>
+      <Header {...route.params} />
+      <ListScreenBody />
+    </View>
+  );
 };
 
 export default ListScreen;

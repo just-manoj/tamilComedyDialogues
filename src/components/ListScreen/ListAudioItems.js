@@ -4,7 +4,7 @@ import AutoScroll from "@homielab/react-native-auto-scroll";
 import IconButton from "../UI/IconButton";
 
 const ListAudioItem = (props) => {
-  const { audioUri, tamilTitle, englishTitle } = props;
+  const { tamilTitle, englishTitle, setNewDialogue, dialogueId } = props;
 
   return (
     <View style={styles.constainer}>
@@ -23,7 +23,12 @@ const ListAudioItem = (props) => {
         </Text>
       </View>
       <View style={styles.iconsContainer}>
-        <IconButton name="play" size={35} color="black" onPress={() => {}} />
+        <IconButton
+          name="play"
+          size={35}
+          color="black"
+          onPress={() => setNewDialogue(dialogueId)}
+        />
         <IconButton
           name="logo-whatsapp"
           size={35}
@@ -54,9 +59,3 @@ const styles = StyleSheet.create({
     padding: 2,
   },
 });
-
-{
-  /* <AutoScroll delay={2000} duration={13000} endPaddingWidth={70}>
-        <Text style={{ fontSize: 18 }}>{tamilTitle}</Text>
-        </AutoScroll> */
-}

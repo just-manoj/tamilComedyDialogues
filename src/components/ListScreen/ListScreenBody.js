@@ -40,30 +40,37 @@ const ListScreenBody = () => {
   const [dialogueAudio, setDialogueAudio] = useState(null);
   const [dialogue, setDialogue] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isFinish, setIsFinish] = useState(false);
 
   const onPlayStatusUpdate = (status) => {
     setIsPlaying(status.isPlaying);
+    setIsFinish(status.didJustFinish);
   };
 
   const setNewDialogue = async (id) => {
-    if (dialogueAudio && id !== dialogue.dialogueId) {
+    let dialogueNull = false;
+    if ((dialogueAudio && id !== dialogue.dialogueId) || isFinish) {
       await dialogueAudio.pauseAsync();
       await dialogueAudio.unloadAsync();
+      setDialogue(null);
+      dialogueNull = true;
     }
-    if (id !== dialogue.dialogueId) {
-      const data = dummyList.find((d) => d.dialogueId == id);
-      const { sound } = await Audio.Sound.createAsync(
-        {
-          uri: data.audioUri,
-        },
-        { shouldPlay: true },
-        onPlayStatusUpdate
-      );
-      setDialogueAudio(sound);
-      setDialogue({ ...data });
-    } else {
+
+    if (!dialogueNull && id === dialogue.dialogueId) {
       forPlayPause();
+      return;
     }
+
+    const data = dummyList.find((d) => d.dialogueId == id);
+    const { sound } = await Audio.Sound.createAsync(
+      {
+        uri: data.audioUri,
+      },
+      { shouldPlay: true },
+      onPlayStatusUpdate
+    );
+    setDialogueAudio(sound);
+    setDialogue({ ...data });
   };
 
   const forPlayPause = async () => {

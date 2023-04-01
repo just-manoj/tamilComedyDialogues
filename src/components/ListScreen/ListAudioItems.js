@@ -1,10 +1,28 @@
 import { View, Text, StyleSheet } from "react-native";
 import AutoScroll from "@homielab/react-native-auto-scroll";
+import * as sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
 
 import IconButton from "../UI/IconButton";
 
 const ListAudioItem = (props) => {
-  const { tamilTitle, englishTitle, setNewDialogue, dialogueId } = props;
+  const { tamilTitle, englishTitle, setNewDialogue, dialogueId, audioUri } =
+    props;
+
+  const shareToSocialMedia = async () => {
+    try {
+      const { uri } = await FileSystem.downloadAsync(
+        audioUri,
+        FileSystem.cacheDirectory + "audio.mp3"
+      );
+      await sharing.shareAsync(uri, {
+        mimeType: "audio/mp3",
+        dialogTitle: "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.constainer}>
@@ -33,7 +51,7 @@ const ListAudioItem = (props) => {
           name="logo-whatsapp"
           size={35}
           color="green"
-          onPress={() => {}}
+          onPress={shareToSocialMedia}
         />
       </View>
     </View>

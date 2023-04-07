@@ -6,13 +6,18 @@ import * as FileSystem from "expo-file-system";
 import IconButton from "../UI/IconButton";
 
 const ListAudioItem = (props) => {
-  const { tamilTitle, englishTitle, setNewDialogue, dialogueId, audioUri } =
-    props;
+  const {
+    dialogueTamilTitle,
+    dialogueEnglishTitle,
+    setNewDialogue,
+    dialogueId,
+    dialogueUri,
+  } = props;
 
   const shareToSocialMedia = async () => {
     try {
       const { uri } = await FileSystem.downloadAsync(
-        audioUri,
+        dialogueUri,
         FileSystem.cacheDirectory + "audio.mp3"
       );
       await sharing.shareAsync(uri, {
@@ -27,17 +32,17 @@ const ListAudioItem = (props) => {
   return (
     <View style={styles.constainer}>
       <View style={{ width: 255 }}>
-        {tamilTitle.length < 25 ? (
-          <Text style={{ fontSize: 18 }}>{tamilTitle}</Text>
+        {dialogueTamilTitle.length < 25 ? (
+          <Text style={{ fontSize: 18 }}>{dialogueTamilTitle}</Text>
         ) : (
           <AutoScroll delay={2150} duration={13000} endPaddingWidth={70}>
-            <Text style={{ fontSize: 18 }}>{tamilTitle}</Text>
+            <Text style={{ fontSize: 18 }}>{dialogueTamilTitle}</Text>
           </AutoScroll>
         )}
         <Text style={{ fontSize: 16 }}>
-          {englishTitle.length < 30
-            ? `${englishTitle}`
-            : `${englishTitle.substring(0, 30)}...`}
+          {dialogueEnglishTitle.length < 30
+            ? `${dialogueEnglishTitle}`
+            : `${dialogueEnglishTitle.substring(0, 30)}...`}
         </Text>
       </View>
       <View style={styles.iconsContainer}>

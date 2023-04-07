@@ -1,8 +1,7 @@
 import axios from "axios";
 
-import { Comedian } from "./model";
+import { Comedian, ComedyDialogue } from "./model";
 
-// https://comedydialogueappdb111-default-rtdb.asia-southeast1.firebasedatabase.app/listAllComedians.json
 const www = "https:";
 const slas = "/";
 const firstHalf = www + slas + slas + "comedydialogueappdb111";
@@ -29,4 +28,24 @@ export const fetchAllComediansList = async () => {
     );
   }
   return listAllComedians;
+};
+
+export const fetchAllComedianDialogues = async (name) => {
+  const response = await axios.get(
+    firstHalf + "-" + defaultStr + "-" + after + slas + name + dbFormat
+  );
+
+  const listAllComedyDialogues = [];
+
+  for (const key in response.data) {
+    listAllComedyDialogues.push(
+      new ComedyDialogue(
+        key,
+        response.data[key].tamilTitle,
+        response.data[key].englishTitle,
+        response.data[key].audioUri
+      )
+    );
+  }
+  return listAllComedyDialogues;
 };

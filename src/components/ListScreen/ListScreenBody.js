@@ -1,11 +1,14 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Audio } from "expo-av";
 
 import ListAudioItem from "./ListAudioItems";
+import { fetchAllComedianDialogues } from "../../util/http";
 
-const ListScreenBody = () => {
+const ListScreenBody = (props) => {
+  const { comedianName } = props;
+  // console.log(comedianName);
   const dummyList = [
     {
       dialogueId: 1,
@@ -37,6 +40,7 @@ const ListScreenBody = () => {
     },
   ];
 
+  const [comedianDialogues, setComedianDialogues] = useState([]);
   const [dialogueAudio, setDialogueAudio] = useState(null);
   const [dialogue, setDialogue] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
@@ -61,10 +65,11 @@ const ListScreenBody = () => {
       return;
     }
 
-    const data = dummyList.find((d) => d.dialogueId == id);
+    const data = comedianDialogues.find((d) => d.dialogueId == id);
+    console.log(data.dialogueUri);
     const { sound } = await Audio.Sound.createAsync(
       {
-        uri: data.audioUri,
+        uri: data.dialogueUri,
       },
       { shouldPlay: true },
       onPlayStatusUpdate
@@ -81,10 +86,18 @@ const ListScreenBody = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchComedyDialogueData = async () => {
+      const data = await fetchAllComedianDialogues(comedianName);
+      setComedianDialogues(data);
+    };
+    fetchComedyDialogueData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={dummyList}
+        data={comedianDialogues}
         keyExtractor={({ dialogueId }) => dialogueId}
         renderItem={({ item }) => (
           <ListAudioItem {...item} setNewDialogue={setNewDialogue} />

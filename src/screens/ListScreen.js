@@ -9,7 +9,7 @@ const ListScreen = () => {
   return (
     <View style={styles.full}>
       <Header {...route.params} />
-      <ListScreenBody />
+      <ListScreenBody comedianName={route.params.comedianName} />
     </View>
   );
 };

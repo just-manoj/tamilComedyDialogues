@@ -8,8 +8,13 @@ export class Comedian {
 }
 
 export class ComedyDialogue {
-  constructor(id, dialogueTamilTitle, dialogueEnglishTitle, dialogueUri) {
-    (this.id = id),
+  constructor(
+    dialogueId,
+    dialogueTamilTitle,
+    dialogueEnglishTitle,
+    dialogueUri
+  ) {
+    (this.dialogueId = dialogueId),
       (this.dialogueTamilTitle = dialogueTamilTitle),
       (this.dialogueEnglishTitle = dialogueEnglishTitle),
       (this.dialogueUri = dialogueUri);

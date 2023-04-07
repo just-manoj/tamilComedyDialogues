@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import SearchBar from "../components/Header/SearchBar";
 import HomeScreenBody from "../components/HomeScreen/HomeScreenBody";
+import { fetchAllComediansList } from "../util/http";
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -105,7 +106,11 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    setComedianListData(dummyData);
+    const fetchData = async () => {
+      const data = await fetchAllComediansList();
+      setComedianListData(data);
+    };
+    fetchData();
   }, []);
   return (
     <View style={{ flex: 1 }}>

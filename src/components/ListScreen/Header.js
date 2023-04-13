@@ -1,11 +1,10 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 import IconButton from "../UI/IconButton";
 
 const Header = (props) => {
-  const navigation = useNavigation();
-  const { comedianImageUri, comedianName } = props;
+  const { comedianImageUri, comedianName, navigateToHomeScreen } = props;
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -13,7 +12,7 @@ const Header = (props) => {
           name="arrow-back"
           size={33}
           color="black"
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigateToHomeScreen()}
         />
         <Image
           source={{ uri: comedianImageUri }}

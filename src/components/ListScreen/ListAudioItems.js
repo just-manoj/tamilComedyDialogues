@@ -12,6 +12,7 @@ const ListAudioItem = (props) => {
     setNewDialogue,
     dialogueId,
     dialogueUri,
+    setPauseId,
   } = props;
 
   const shareToSocialMedia = async () => {
@@ -47,7 +48,7 @@ const ListAudioItem = (props) => {
       </View>
       <View style={styles.iconsContainer}>
         <IconButton
-          name="play"
+          name={setPauseId === dialogueId ? "pause" : "play"}
           size={35}
           color="black"
           onPress={() => setNewDialogue(dialogueId)}

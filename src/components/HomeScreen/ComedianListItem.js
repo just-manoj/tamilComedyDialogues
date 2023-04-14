@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { Text, Image, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const ComedianListItem = (props) => {
@@ -14,10 +14,18 @@ const ComedianListItem = (props) => {
     });
   };
 
+  const bgColor = ["#71eabe", "#cd72eb"];
+
+  const fingBGColor = () => {
+    if ((index / 2) % 2 == 1.5) return 0;
+    return Math.ceil((index / 2) % 2);
+  };
+
   return (
     <Pressable
       style={[
         styles.full,
+        { backgroundColor: bgColor[fingBGColor()] },
         index % 2 ? styles.rightIemContainer : styles.leftItemContainer,
       ]}
       onPress={navigateToListPage}
@@ -34,9 +42,11 @@ export default ComedianListItem;
 const styles = StyleSheet.create({
   full: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "#90ddbf",
     alignItems: "center",
     marginBottom: 15,
+    elevation: 5,
+    color: "#ab09bf",
   },
   leftItemContainer: {
     marginLeft: 15,

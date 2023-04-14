@@ -84,11 +84,11 @@ const ListScreen = ({ navigation }) => {
     };
     fetchComedyDialogueData();
   }, [fetchAllComedianDialogues, setComedianDialogues, route]);
-
   return (
     <View style={styles.full}>
       <Header {...route.params} navigateToHomeScreen={navigateToHomeScreen} />
       <ListScreenBody
+        bgColor={route.params.bgColor}
         findPauseId={findPauseId}
         setNewDialogue={setNewDialogue}
         comedianDialogues={comedianDialogues}

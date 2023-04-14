@@ -11,10 +11,11 @@ const ComedianListItem = (props) => {
       comedianName,
       comedianImageUri,
       dialoguesCount,
+      bgColor: bgColor[fingBGColor()],
     });
   };
 
-  const bgColor = ["#71eabe", "#cd72eb"];
+  const bgColor = ["#5c89d0", "#cd72eb"];
 
   const fingBGColor = () => {
     if ((index / 2) % 2 == 1.5) return 0;

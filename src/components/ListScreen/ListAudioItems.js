@@ -7,6 +7,7 @@ import IconButton from "../UI/IconButton";
 
 const ListAudioItem = (props) => {
   const {
+    bgColor,
     dialogueTamilTitle,
     dialogueEnglishTitle,
     setNewDialogue,
@@ -14,7 +15,6 @@ const ListAudioItem = (props) => {
     dialogueUri,
     setPauseId,
   } = props;
-
   const shareToSocialMedia = async () => {
     try {
       const { uri } = await FileSystem.downloadAsync(
@@ -29,11 +29,13 @@ const ListAudioItem = (props) => {
       console.log(error);
     }
   };
-
   return (
-    <View style={styles.constainer}>
+    <View
+      key={dialogueId}
+      style={[styles.constainer, { backgroundColor: bgColor }]}
+    >
       <View style={{ width: 255 }}>
-        {dialogueTamilTitle.length < 25 ? (
+        {dialogueTamilTitle.length < 20 ? (
           <Text style={{ fontSize: 18 }}>{dialogueTamilTitle}</Text>
         ) : (
           <AutoScroll delay={2150} duration={13000} endPaddingWidth={70}>
@@ -41,9 +43,9 @@ const ListAudioItem = (props) => {
           </AutoScroll>
         )}
         <Text style={{ fontSize: 16 }}>
-          {dialogueEnglishTitle.length < 30
+          {dialogueEnglishTitle.length < 28
             ? `${dialogueEnglishTitle}`
-            : `${dialogueEnglishTitle.substring(0, 30)}...`}
+            : `${dialogueEnglishTitle.substring(0, 28)}...`}
         </Text>
       </View>
       <View style={styles.iconsContainer}>
@@ -68,7 +70,7 @@ export default ListAudioItem;
 
 const styles = StyleSheet.create({
   constainer: {
-    backgroundColor: "blue",
+    // backgroundColor: "#cd72eb",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

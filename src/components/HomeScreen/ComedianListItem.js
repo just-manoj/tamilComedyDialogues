@@ -33,9 +33,12 @@ const ComedianListItem = (props) => {
       onPress={navigateToListPage}
     >
       <Image source={{ uri: comedianImageUri }} style={styles.image} />
-
-      <Text>{comedianName}</Text>
-      <Text>{dialoguesCount}</Text>
+      <Text style={{ color: "#a93108", fontSize: 18, fontWeight: "800" }}>
+        {comedianName}
+      </Text>
+      <Text style={{ color: "#000000", fontSize: 16.5, fontWeight: "800" }}>
+        {dialoguesCount}
+      </Text>
     </Pressable>
   );
 };
@@ -48,6 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#90ddbf",
     alignItems: "center",
     marginBottom: 15,
+    paddingBottom: 1,
     elevation: 5,
     color: "#ab09bf",
   },

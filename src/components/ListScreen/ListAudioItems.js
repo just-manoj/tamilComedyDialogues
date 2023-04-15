@@ -34,18 +34,18 @@ const ListAudioItem = (props) => {
       key={dialogueId}
       style={[styles.constainer, { backgroundColor: bgColor }]}
     >
-      <View style={{ width: 255 }}>
+      <View style={styles.textContainer}>
         {dialogueTamilTitle.length < 20 ? (
-          <Text style={{ fontSize: 18 }}>{dialogueTamilTitle}</Text>
+          <Text style={styles.tamilText}>{dialogueTamilTitle}</Text>
         ) : (
-          <AutoScroll delay={2150} duration={13000} endPaddingWidth={70}>
-            <Text style={{ fontSize: 18 }}>{dialogueTamilTitle}</Text>
+          <AutoScroll delay={2150} duration={14000} endPaddingWidth={70}>
+            <Text style={styles.tamilText}>{dialogueTamilTitle}</Text>
           </AutoScroll>
         )}
-        <Text style={{ fontSize: 16 }}>
-          {dialogueEnglishTitle.length < 28
+        <Text style={styles.englishText}>
+          {dialogueEnglishTitle.length < 27
             ? `${dialogueEnglishTitle}`
-            : `${dialogueEnglishTitle.substring(0, 28)}...`}
+            : `${dialogueEnglishTitle.substring(0, 27)}...`}
         </Text>
       </View>
       <View style={styles.iconsContainer}>
@@ -70,7 +70,6 @@ export default ListAudioItem;
 
 const styles = StyleSheet.create({
   constainer: {
-    // backgroundColor: "#cd72eb",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -83,5 +82,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     padding: 2,
+  },
+  textContainer: {
+    width: 255,
+  },
+  tamilText: {
+    fontSize: 18,
+    color: "#460c36",
+    fontWeight: "800",
+  },
+  englishText: {
+    fontSize: 16.5,
+    color: "#4ce6dc",
+    fontWeight: "600",
   },
 });

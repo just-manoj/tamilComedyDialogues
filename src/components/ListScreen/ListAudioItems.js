@@ -52,13 +52,13 @@ const ListAudioItem = (props) => {
         <IconButton
           name={setPauseId === dialogueId ? "pause" : "play"}
           size={35}
-          color="black"
+          color="#11883c"
           onPress={() => setNewDialogue(dialogueId)}
         />
         <IconButton
-          name="logo-whatsapp"
+          name="share-social"
           size={35}
-          color="green"
+          color="#F2005F"
           onPress={shareToSocialMedia}
         />
       </View>

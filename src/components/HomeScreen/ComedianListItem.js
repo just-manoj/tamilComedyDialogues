@@ -1,4 +1,4 @@
-import { Text, Image, StyleSheet, Pressable } from "react-native";
+import { Text, Image, StyleSheet, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const ComedianListItem = (props) => {
@@ -24,7 +24,8 @@ const ComedianListItem = (props) => {
 
   return (
     <Pressable
-      style={[
+      style={({ pressed }) => [
+        pressed && styles.pressed,
         styles.full,
         { backgroundColor: bgColor[fingBGColor()] },
         index % 2 ? styles.rightIemContainer : styles.leftItemContainer,
@@ -32,6 +33,7 @@ const ComedianListItem = (props) => {
       onPress={navigateToListPage}
     >
       <Image source={{ uri: comedianImageUri }} style={styles.image} />
+
       <Text>{comedianName}</Text>
       <Text>{dialoguesCount}</Text>
     </Pressable>
@@ -48,6 +50,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     elevation: 5,
     color: "#ab09bf",
+  },
+  pressed: {
+    opacity: 0.6,
   },
   leftItemContainer: {
     marginLeft: 15,

@@ -4,21 +4,23 @@ import { useState, useEffect } from "react";
 import SearchBar from "../components/Header/SearchBar";
 import HomeScreenBody from "../components/HomeScreen/HomeScreenBody";
 import { fetchAllComediansList } from "../util/http";
+import Empty from "../components/common/Empty";
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [titleState, setTitleState] = useState(false);
   const [comedianListData, setComedianListData] = useState([]);
+  const [tempComedianListData, setTempComedianListData] = useState([]);
 
   const clearSearchText = () => {
-    setComedianListData(comedianListData);
+    setComedianListData(tempComedianListData);
     setSearchText("");
   };
 
   const getSearchInput = (inp) => {
     setSearchText(inp);
     setComedianListData(
-      comedianListData.filter((item) => {
+      tempComedianListData.filter((item) => {
         return (
           item.comedianName.toUpperCase().indexOf(inp.toUpperCase()) !== -1
         );
@@ -27,8 +29,7 @@ const HomeScreen = () => {
   };
 
   const changeTitleHandler = () => {
-    setComedianListData(comedianListData);
-    setSearchText("");
+    clearSearchText();
     setTitleState(!titleState);
   };
 
@@ -36,6 +37,7 @@ const HomeScreen = () => {
     const fetchData = async () => {
       const data = await fetchAllComediansList();
       setComedianListData(data);
+      setTempComedianListData(data);
     };
     fetchData();
   }, []);
@@ -49,7 +51,11 @@ const HomeScreen = () => {
         setSearchText={getSearchInput}
         clearSearchText={clearSearchText}
       />
-      <HomeScreenBody comedianListData={comedianListData} />
+      {comedianListData.length !== 0 ? (
+        <HomeScreenBody comedianListData={comedianListData} />
+      ) : (
+        <Empty>No comedian found</Empty>
+      )}
     </View>
   );
 };

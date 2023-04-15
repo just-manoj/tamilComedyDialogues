@@ -13,7 +13,7 @@ const HomeScreenBody = (props) => {
         renderItem={({ item, index }) => (
           <ComedianListItem
             index={index}
-            comedianName={item.ComedianName}
+            comedianName={item.comedianName}
             comedianImageUri={item.imageUri}
             dialoguesCount={item.dialogueCount}
           />

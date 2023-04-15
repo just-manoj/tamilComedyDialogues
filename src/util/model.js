@@ -1,7 +1,7 @@
 export class Comedian {
-  constructor(id, ComedianName, imageUri, dialogueCount) {
+  constructor(id, comedianName, imageUri, dialogueCount) {
     (this.id = id),
-      (this.ComedianName = ComedianName),
+      (this.comedianName = comedianName),
       (this.imageUri = imageUri),
       (this.dialogueCount = dialogueCount);
   }

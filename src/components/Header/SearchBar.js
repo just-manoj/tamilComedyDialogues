@@ -2,6 +2,7 @@ import { View, StyleSheet } from "react-native";
 
 import Search from "../Header/Search";
 import Title from "../Header/Title";
+import Header from "../ListScreen/Header";
 
 const SearchBar = (props) => {
   const {
@@ -11,7 +12,10 @@ const SearchBar = (props) => {
     clearSearchText,
     titleState,
     changeTitleHandler,
-  } = props;
+    withImage,
+    listHeaderData,
+    navigateToHomeScreen,
+  } = props || {};
 
   return (
     <View style={styles.container}>
@@ -21,6 +25,12 @@ const SearchBar = (props) => {
           searchText={searchText}
           setSearchText={setSearchText}
           clearSearchText={clearSearchText}
+        />
+      ) : withImage ? (
+        <Header
+          {...listHeaderData}
+          navigateToHomeScreen={navigateToHomeScreen}
+          changeTitleHandler={changeTitleHandler}
         />
       ) : (
         <Title title={title} changeTitleHandler={changeTitleHandler} />

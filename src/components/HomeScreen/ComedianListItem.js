@@ -1,8 +1,10 @@
-import { Text, Image, StyleSheet, Pressable, View } from "react-native";
+import { Text, Image, StyleSheet, Pressable, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const ComedianListItem = (props) => {
   const { comedianName, comedianImageUri, dialoguesCount, index } = props;
+
+  const screenWidth = Dimensions.get("window").width;
 
   const navigation = useNavigation();
 
@@ -26,6 +28,7 @@ const ComedianListItem = (props) => {
     <Pressable
       style={({ pressed }) => [
         pressed && styles.pressed,
+        { width: screenWidth / 2 - 22.5 },
         styles.full,
         { backgroundColor: bgColor[fingBGColor()] },
         index % 2 ? styles.rightIemContainer : styles.leftItemContainer,
@@ -47,7 +50,6 @@ export default ComedianListItem;
 
 const styles = StyleSheet.create({
   full: {
-    flex: 1,
     backgroundColor: "#90ddbf",
     alignItems: "center",
     marginBottom: 15,

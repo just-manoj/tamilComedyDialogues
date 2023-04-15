@@ -3,19 +3,47 @@ import { useRoute } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import { Audio } from "expo-av";
 
-import Header from "../components/ListScreen/Header";
 import ListScreenBody from "../components/ListScreen/ListScreenBody";
 import { fetchAllComedianDialogues } from "../util/http";
+import Search from "../components/Header/Search";
+import SearchBar from "../components/Header/SearchBar";
 
 const ListScreen = ({ navigation }) => {
   const route = useRoute();
 
   const [comedianDialogues, setComedianDialogues] = useState([]);
+  const [tempComedianDialogues, setTempComedianDialogues] = useState([]);
   const [dialogueAudio, setDialogueAudio] = useState(null);
   const [dialogue, setDialogue] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFinish, setIsFinish] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [titleState, setTitleState] = useState(false);
 
+  //for search
+  const clearSearchText = () => {
+    setComedianDialogues(tempComedianDialogues);
+    setSearchText("");
+  };
+
+  const changeTitleHandler = () => {
+    clearSearchText();
+    setTitleState(!titleState);
+  };
+
+  const getSearchInput = (inp) => {
+    setSearchText(inp);
+    setComedianDialogues(
+      tempComedianDialogues.filter((item) => {
+        return (
+          item.dialogueEnglishTitle.toUpperCase().indexOf(inp.toUpperCase()) !==
+            -1 || item.dialogueTamilTitle.indexOf(inp) !== -1
+        );
+      })
+    );
+  };
+
+  //for search
   BackHandler.addEventListener(
     "hardwareBackPress",
     async () => await navigateToHomeScreen()
@@ -48,7 +76,7 @@ const ListScreen = ({ navigation }) => {
     }
 
     if (!dialogueNull && id === dialogue.dialogueId) {
-      return forPlayPause(id);
+      return forPlayPause();
     }
 
     const data = comedianDialogues.find((d) => d.dialogueId == id);
@@ -63,7 +91,7 @@ const ListScreen = ({ navigation }) => {
     setDialogue({ ...data });
   };
 
-  const forPlayPause = async (id) => {
+  const forPlayPause = async () => {
     if (isPlaying) {
       await dialogueAudio.pauseAsync();
     } else {
@@ -80,13 +108,23 @@ const ListScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchComedyDialogueData = async () => {
       const data = await fetchAllComedianDialogues(route.params.comedianName);
+      setTempComedianDialogues(data);
       setComedianDialogues(data);
     };
     fetchComedyDialogueData();
   }, [fetchAllComedianDialogues, setComedianDialogues, route]);
   return (
     <View style={styles.full}>
-      <Header {...route.params} navigateToHomeScreen={navigateToHomeScreen} />
+      <SearchBar
+        withImage
+        titleState={titleState}
+        searchText={searchText}
+        setSearchText={getSearchInput}
+        listHeaderData={route.params}
+        navigateToHomeScreen={navigateToHomeScreen}
+        changeTitleHandler={changeTitleHandler}
+        clearSearchText={clearSearchText}
+      />
       <ListScreenBody
         bgColor={route.params.bgColor}
         findPauseId={findPauseId}

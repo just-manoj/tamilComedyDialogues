@@ -1,11 +1,10 @@
-import { View, StyleSheet, BackHandler } from "react-native";
+import { View, StyleSheet, BackHandler, ActivityIndicator } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import { Audio } from "expo-av";
 
 import ListScreenBody from "../components/ListScreen/ListScreenBody";
 import { fetchAllComedianDialogues } from "../util/http";
-import Search from "../components/Header/Search";
 import SearchBar from "../components/Header/SearchBar";
 
 const ListScreen = ({ navigation }) => {
@@ -19,6 +18,7 @@ const ListScreen = ({ navigation }) => {
   const [isFinish, setIsFinish] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [titleState, setTitleState] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   //for search
   const clearSearchText = () => {
@@ -110,28 +110,37 @@ const ListScreen = ({ navigation }) => {
       const data = await fetchAllComedianDialogues(route.params.comedianName);
       setTempComedianDialogues(data);
       setComedianDialogues(data);
+      setIsLoading(false);
     };
     fetchComedyDialogueData();
-  }, [fetchAllComedianDialogues, setComedianDialogues, route]);
+  }, [fetchAllComedianDialogues, setComedianDialogues, route, setIsLoading]);
   return (
-    <View style={styles.full}>
-      <SearchBar
-        withImage
-        titleState={titleState}
-        searchText={searchText}
-        setSearchText={getSearchInput}
-        listHeaderData={route.params}
-        navigateToHomeScreen={navigateToHomeScreen}
-        changeTitleHandler={changeTitleHandler}
-        clearSearchText={clearSearchText}
-      />
-      <ListScreenBody
-        bgColor={route.params.bgColor}
-        findPauseId={findPauseId}
-        setNewDialogue={setNewDialogue}
-        comedianDialogues={comedianDialogues}
-      />
-    </View>
+    <>
+      {isLoading ? (
+        <View style={[styles.full, styles.loading]}>
+          <ActivityIndicator size="large" color="#e58525" />
+        </View>
+      ) : (
+        <View style={styles.full}>
+          <SearchBar
+            withImage
+            titleState={titleState}
+            searchText={searchText}
+            setSearchText={getSearchInput}
+            listHeaderData={route.params}
+            navigateToHomeScreen={navigateToHomeScreen}
+            changeTitleHandler={changeTitleHandler}
+            clearSearchText={clearSearchText}
+          />
+          <ListScreenBody
+            bgColor={route.params.bgColor}
+            findPauseId={findPauseId}
+            setNewDialogue={setNewDialogue}
+            comedianDialogues={comedianDialogues}
+          />
+        </View>
+      )}
+    </>
   );
 };
 
@@ -140,5 +149,9 @@ export default ListScreen;
 const styles = StyleSheet.create({
   full: {
     flex: 1,
+  },
+  loading: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

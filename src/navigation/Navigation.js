@@ -16,8 +16,8 @@ const Navigation = () => {
           contentStyle: { paddingTop: 30 },
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="List" component={ListScreen} />
       </Stack.Navigator>
     </NavigationContainer>

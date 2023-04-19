@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import AutoScroll from "@homielab/react-native-auto-scroll";
 import * as sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
@@ -15,6 +15,7 @@ const ListAudioItem = (props) => {
     dialogueUri,
     setPauseId,
   } = props;
+
   const shareToSocialMedia = async () => {
     try {
       const { uri } = await FileSystem.downloadAsync(
@@ -34,7 +35,7 @@ const ListAudioItem = (props) => {
       key={dialogueId}
       style={[styles.constainer, { backgroundColor: bgColor }]}
     >
-      <View style={styles.textContainer}>
+      <View style={{ width: "72%" }}>
         {dialogueTamilTitle.length < 20 ? (
           <Text style={styles.tamilText}>{dialogueTamilTitle}</Text>
         ) : (
@@ -42,10 +43,8 @@ const ListAudioItem = (props) => {
             <Text style={styles.tamilText}>{dialogueTamilTitle}</Text>
           </AutoScroll>
         )}
-        <Text style={styles.englishText}>
-          {dialogueEnglishTitle.length < 27
-            ? `${dialogueEnglishTitle}`
-            : `${dialogueEnglishTitle.substring(0, 27)}...`}
+        <Text style={styles.englishText} numberOfLines={1}>
+          {dialogueEnglishTitle}
         </Text>
       </View>
       <View style={styles.iconsContainer}>
@@ -82,9 +81,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     padding: 2,
-  },
-  textContainer: {
-    width: 255,
   },
   tamilText: {
     fontSize: 18,

@@ -1,13 +1,8 @@
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  Linking,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { useRef } from "react";
 import { Video } from "expo-av";
+
+import ChannelName from "./ChannelName";
 
 const Welcome = () => {
   const videoRef = useRef(null);
@@ -35,26 +30,14 @@ const Welcome = () => {
           onPlaybackStatusUpdate={onPlaybackStatusUpdate}
         />
       </View>
-      <Text style={styles.text}>Powered By</Text>
-      <Image
-        source={require("../../assets/ChannelLogo.jpg")}
-        style={styles.welcomeImg}
-      />
-      <Pressable
-        style={({ pressed }) => [
-          styles.channelNameContainer,
-          pressed && { opacity: 0.5 },
-        ]}
-        onPress={() =>
-          Linking.openURL("https://www.youtube.com/@FreeTimeDeveloper/")
-        }
-      >
+      <View style={styles.channelContainer}>
+        <Text style={styles.text}>Powered By</Text>
         <Image
-          source={require("../../assets/Youtube.png")}
-          style={styles.logo}
+          source={require("../../assets/ChannelLogo.jpg")}
+          style={styles.welcomeImg}
         />
-        <Text style={styles.channelName}>/FreeTimeDevloper</Text>
-      </Pressable>
+        <ChannelName />
+      </View>
     </View>
   );
 };
@@ -86,21 +69,5 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#b92ad9",
   },
-  channelNameContainer: {
-    flexDirection: "row",
-    alignSelf: "center",
-    alignContent: "center",
-  },
-  logo: {
-    height: 22,
-    width: 30,
-    position: "absolute",
-    resizeMode: "cover",
-  },
-  channelName: {
-    marginLeft: 28,
-    fontSize: 15,
-    fontWeight: "500",
-    color: "#19b1c8",
-  },
+  channelContainer: { alignItems: "center" },
 });

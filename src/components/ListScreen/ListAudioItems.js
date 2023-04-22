@@ -37,7 +37,9 @@ const ListAudioItem = (props) => {
     >
       <View style={{ width: "72%" }}>
         {dialogueTamilTitle.length < 20 ? (
-          <Text style={styles.tamilText}>{dialogueTamilTitle}</Text>
+          <Text numberOfLines={1} style={styles.tamilText}>
+            {dialogueTamilTitle}
+          </Text>
         ) : (
           <AutoScroll delay={2150} duration={14000} endPaddingWidth={70}>
             <Text style={styles.tamilText}>{dialogueTamilTitle}</Text>
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
     padding: 2,
   },
   tamilText: {
+    paddingBottom: 1,
     fontSize: 18,
     color: "#460c36",
     fontWeight: "800",
